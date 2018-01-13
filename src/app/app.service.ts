@@ -82,14 +82,5 @@ export class AppService {
       },
       {autoApply: false}
     );
-
-
-
-
-
   }
-
-
-
-
 }

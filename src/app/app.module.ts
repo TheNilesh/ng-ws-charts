@@ -19,7 +19,7 @@ import { ChartDemoComponent } from './chart-demo/chart-demo.component';
     FormsModule,
     ChartModule
   ],
-  providers: [ AppService ],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

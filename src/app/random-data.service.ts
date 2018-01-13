@@ -5,10 +5,22 @@ import { Observable } from "rxjs/Observable";
 import { Message } from './models';
 
 @Injectable()
-export class RandomDataService implements Observable<Message> {
+export class RandomDataService {
 
-  _isScalar: boolean;
+  data: Observable<any>;
 
-  constructor() { }
+  constructor() { 
+    this.data = Observable.create((observer) => {
+      setInterval(() => {
+        let hits: number[];
+        hits = [];
+        hits[0] = Math.floor(Math.random()*50);
+        hits[1] = Math.floor(Math.random()*50);
+        console.log(hits[0]);
+        observer.next(hits);
+      }, 3000);
+      //observer.complete();
+    });
+  }
 
 }

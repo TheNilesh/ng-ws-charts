@@ -2,16 +2,17 @@ import { Component, OnInit } from '@angular/core';
 
 import { Chart } from 'angular-highcharts';
 import { Observer } from "rxjs/Observer";
+import { RandomDataService } from '../random-data.service';
 
 @Component({
   selector: 'app-chart-demo',
   templateUrl: './chart-demo.component.html',
-  styleUrls: ['./chart-demo.component.css']
+  styleUrls: ['./chart-demo.component.css'],
+  providers: [RandomDataService]
 })
 export class ChartDemoComponent implements OnInit {
   private chart:Chart;
-  private gData;
-  constructor() { }
+  constructor(private dataService: RandomDataService) { }
 
   ngOnInit() {
     this.chart = new Chart({
@@ -19,23 +20,30 @@ export class ChartDemoComponent implements OnInit {
         type: 'line'
       },
       title: {
-        text:'My First Chart'
+        text:'Citywise Hit Stats'
       },
       credits: {
         enabled:false
       },
       series: [
         {
-          name: 'Line1',
-          data: [10]
+          name: 'Pune',
+          data: []
+        },
+        {
+          name: 'Mumbai',
+          data: []
         }
       ]
     });
-    
+    this.dataService.data.subscribe((stats) => {
+      this.add(stats[0], 0);
+      this.add(stats[1], 1);
+    });
   }
 
-  add() {
-      this.chart.addPoint(Math.floor(Math.random() * 10));
+  add(value: number, seriesIndex: number) {
+      this.chart.addPoint(value, seriesIndex);
   }
 
 }
